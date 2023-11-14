@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="shoes.js" defer></script>
+    <!-- ***** ALPINE ***** -->
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <!-- ***** ALPINE ***** -->
+    <!-- ***** AXIOS ***** -->
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <!-- ***** AXIOS ***** -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="sign-up.css" />
+  </head>
+
+  <body x-data="shoeapi">
+    <!-- Navbar -->
+    <header>
+      <!-- Nav -->
+      <nav class="nav container">
+        <!-- logo -->
+        <a href="#" class="logo">Ecommerce</a>
+        <div class="nav">
+          <!-- cart icon -->
+          <i
+            class="bx bx-shopping-bag"
+            id="cart-icon"
+            data-quantity="0"
+            x-on:click="openCart"
+          ></i>
+          <!-- user icon -->
+          <!-- <i class="bx bx-user" id="user-icon"></i> -->
+          <!-- cart -->
+        </div>
+        <div class="cart" x-bind:class="showCart ? 'active': '' ">
+          <h2 class="cart-title">Your Cart</h2>
+          <!-- content -->
+          <div>
+            <!-- cart template -->
+            <template x-for="shoe in cartShoes">
+              <div class="cart-box">
+                <img x-bind:src="shoe.image_url" alt="" class="cart-img" />
+                <div class="detail-box">
+                  <div x-text="shoe.name" class="cart-shoe-name"></div>
+                  <div>
+                    R <span x-text="shoe.new_price" class="cart-price"></span>
+                  </div>
+                  <!-- <input type="number" class="cart-quantity" value="1" /> -->
+                  <i
+                    class="bx bx-plus-circle add-shoe-qty"
+                    x-on:click="addShoeToCart(shoe.shoe_id)"
+                  ></i>
+                  <span x-text="shoe.qty"></span>
+                  <i
+                    class="bx bx-minus-circle minus-shoe-qty"
+                    x-on:click="removeShoeFromCart(shoe.shoe_id)"
+                  ></i>
+                </div>
+                <!-- remove item icon -->
+                <i
+                  class="bx bx-trash-alt cart-remove"
+                  x-on:click="deleteShoeFromCart(shoe.shoe_id)"
+                ></i>
+              </div>
+            </template>
+            <!-- cart template -->
+          </div>
+          <!-- total -->
+          <div class="total">
+            <div class="total-title">Total</div>
+            <div>R<span x-text="cartTotal" class="total-price"></span></div>
+          </div>
+
+          <!-- buy button -->
+          <button class="btn-buy" type="button">Pay now</button>
+          <!-- close cart -->
+          <i class="bx bx-x" id="close-cart" x-on:click="closeCart"></i>
+        </div>
+      </nav>
+    </header>
+    <!-- shoes -->
+    <section class="shop container">
+      <h2 class="section-title">Shoe Catalogue</h2>
+      <!-- Shop Content -->
+      <div class="shop-content">
+        <template x-for="shoe in shoes">
+          <div class="shoe-box">
+            <img
+              x-bind:src="shoe.image_url"
+              data-img="shoe.image_url"
+              alt=""
+              class="shoe-img"
+            />
+            <h4 x-text="shoe.brand" class="shoe-brand"></h4>
+            <span x-text="shoe.color" class="shoe-color"></span>
+            <h2 x-text="shoe.name" class="shoe-name"></h2>
+            <span class="price"
+              >R <span x-text="shoe.new_price" class="price"></span
+            ></span>
+            <p class="shoe-size">
+              size : <span x-text="shoe.size" class="shoe-size"></span>
+            </p>
+            <p class="shoe-quantity">
+              in stock :
+              <span x-text="shoe.quantity" class="shoe-quantity"></span>
+            </p>
+            <i
+              class="bx bx-shopping-bag add-cart"
+              x-on:click="addShoeToCart(shoe.id)"
+            ></i>
+          </div>
+        </template>
+      </div>
+    </section>
+    <!-- modal for sign/login form -->
+    <div class="modal" x-show="open">
+      <button class="btn-close-modal" x-on:click="hideModal">&times;</button>
+      <h2 class="modal-header">Hey There👋🏽 Please Open your account</h2>
+      <form class="modal-form">
+        <label>Email Address</label>
+        <input type="email" />
+        <label>Password</label>
+        <input type="text" />
+        <button class="btn">Signup &rarr;</button>
+        <p class="login-text">
+          already have an acccount ?
+          <span class="hidden"> don't have an acccount ? </span>
+          <span
+            ><a href="" x-on:click="userStatus">
+              <span x-bind:class="userExists ? 'hidden': '' ">login</span>
+              <span x-bind:class="userExists ? 'hidden': '' ">signup</span></a
+            ></span
+          >
+        </p>
+      </form>
+    </div>
+    <div class="overlay" x-show="open"></div>
+    <!-- modal for sign/login form -->
+  </body>
+</html>
