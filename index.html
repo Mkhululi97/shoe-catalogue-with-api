@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Shoe-catalogue</title>
     <script src="shoes.js" defer></script>
     <!-- ***** ALPINE ***** -->
     <script src="//unpkg.com/alpinejs" defer></script>
@@ -17,6 +17,11 @@
     />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="sign-up.css" />
+    <link
+      rel="shortcut icon"
+      href="./images/favicon1.ico"
+      type="image/x-icon"
+    />
   </head>
 
   <body x-data="shoeapi">
@@ -25,7 +30,7 @@
       <!-- Nav -->
       <nav class="nav container">
         <!-- logo -->
-        <a href="#" class="logo">Lubabalo Kicks</a>
+        <a href="#" class="logo">Lubabalo's Kicks👟</a>
         <div class="nav">
           <!-- cart icon -->
           <i
@@ -128,7 +133,7 @@
         <label>Password</label>
         <input type="text" />
         <button class="btn">Signup &rarr;</button>
-        <!-- <p class="login-text">
+        <p class="login-text">
           already have an acccount ?
           <span class="hidden"> don't have an acccount ? </span>
           <span
@@ -137,7 +142,7 @@
               <span x-bind:class="userExists ? 'hidden': '' ">signup</span></a
             ></span
           >
-        </p> -->
+        </p>
       </form>
     </div>
     <div class="overlay" x-show="open"></div>
