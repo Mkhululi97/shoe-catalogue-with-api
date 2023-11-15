@@ -16,7 +16,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="sign-up.css" />
     <link
       rel="shortcut icon"
       href="./images/favicon1.ico"
@@ -57,15 +56,17 @@
                     R <span x-text="shoe.new_price" class="cart-price"></span>
                   </div>
                   <!-- <input type="number" class="cart-quantity" value="1" /> -->
-                  <i
-                    class="bx bx-plus-circle add-shoe-qty"
-                    x-on:click="addShoeToCart(shoe.shoe_id)"
-                  ></i>
-                  <span x-text="shoe.qty"></span>
-                  <i
-                    class="bx bx-minus-circle minus-shoe-qty"
-                    x-on:click="removeShoeFromCart(shoe.shoe_id)"
-                  ></i>
+                  <div>
+                    <i
+                      class="bx bx-plus-circle add-shoe-qty"
+                      x-on:click="addShoeToCart(shoe.shoe_id)"
+                    ></i>
+                    <span x-text="shoe.qty"></span>
+                    <i
+                      class="bx bx-minus-circle minus-shoe-qty"
+                      x-on:click="removeShoeFromCart(shoe.shoe_id)"
+                    ></i>
+                  </div>
                 </div>
                 <!-- remove item icon -->
                 <i
@@ -124,7 +125,7 @@
       </div>
     </section>
     <!-- modal for sign/login form -->
-    <div class="modal" x-show="open">
+    <!-- <div class="modal" x-show="open">
       <button class="btn-close-modal" x-on:click="hideModal">&times;</button>
       <h2 class="modal-header">Hey There👋🏽 Please Open your account</h2>
       <form class="modal-form">
@@ -145,7 +146,7 @@
         </p>
       </form>
     </div>
-    <div class="overlay" x-show="open"></div>
+    <div class="overlay" x-show="open"></div> -->
     <!-- modal for sign/login form -->
   </body>
 </html>

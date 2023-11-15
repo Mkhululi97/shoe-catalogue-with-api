@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up</title>
+    <script src="shoes.js" defer></script>
+    <!-- ***** ALPINE ***** -->
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <!-- ***** ALPINE ***** -->
+    <!-- ***** AXIOS ***** -->
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <!-- ***** AXIOS ***** -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="user-forms.css" />
+  </head>
+  <body x-data="shoeapi">
+    <div class="modal">
+      <h2 class="modal-header">Sign up</h2>
+      <p class="error-msg" x-text="signUpErrors">Invalid mail</p>
+      <form class="modal-form">
+        <label>Email Address</label>
+        <input type="email" x-ref="email" placeholder="enter email" />
+        <label>Password</label>
+        <input type="password" x-ref="password" placeholder="enter password" />
+        <!-- <button class="btn" ><a href="signin.html">Sign up &rarr;</a></button> -->
+        <button
+          type="button"
+          class="btn"
+          x-on:click="
+          email=$refs.email.value,
+          password=$refs.password.value,
+          signUp(email, password), 
+          $refs.email.value = '', 
+          $refs.password.value= ''
+          "
+        >
+          <a x-bind:href="!userExists ? 'signin.html' : ''">Sign up &rarr;</a>
+        </button>
+        <p class="sign-up-text">
+          Already have an acccount ?
+          <a href="signin.html"><span>sign in</span></a>
+        </p>
+      </form>
+    </div>
+  </body>
+</html>
