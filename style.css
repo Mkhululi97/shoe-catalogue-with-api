@@ -22,7 +22,8 @@ body {
   color: var(--bg-color);
   background: var(--container-color);
 }
-section {
+section,
+article {
   padding: 4rem 0 3rem;
 }
 .shop {
@@ -196,6 +197,7 @@ header {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, auto));
   gap: 1.5rem;
+  padding: 0 2.2rem;
 }
 .shoe-box {
   position: relative;
@@ -239,3 +241,36 @@ header {
   background: hsl(249, 32%, 17%);
 }
 /* Add media queries */
+/* article {
+  display: revert;
+  z-index: 100;
+  background-color: #2d2e37;
+  text-align: center;
+}
+label {
+  display: revert;
+} */
+
+article {
+  /* display: grid;
+  grid-template-columns: minmax(320px, auto); */
+  padding-left: 20px;
+  position: sticky;
+  top: 10%;
+}
+.row {
+  display: flex;
+  align-items: flex-start;
+}
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+select {
+  margin-bottom: 1rem;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+}
+.danger {
+  color: #fd4646;
+}

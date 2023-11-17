@@ -90,63 +90,99 @@
         </div>
       </nav>
     </header>
-    <!-- shoes -->
-    <section class="shop container">
-      <h2 class="section-title">Shoe Catalogue</h2>
-      <!-- Shop Content -->
-      <div class="shop-content">
-        <template x-for="shoe in shoes">
-          <div class="shoe-box">
-            <img
-              x-bind:src="shoe.image_url"
-              data-img="shoe.image_url"
-              alt=""
-              class="shoe-img"
-            />
-            <h4 x-text="shoe.brand" class="shoe-brand"></h4>
-            <span x-text="shoe.color" class="shoe-color"></span>
-            <h2 x-text="shoe.name" class="shoe-name"></h2>
-            <span class="price"
-              >R <span x-text="shoe.new_price" class="price"></span
-            ></span>
-            <p class="shoe-size">
-              size : <span x-text="shoe.size" class="shoe-size"></span>
-            </p>
-            <p class="shoe-quantity">
-              in stock :
-              <span x-text="shoe.quantity" class="shoe-quantity"></span>
-            </p>
-            <i
-              class="bx bx-shopping-bag add-cart"
-              x-on:click="addShoeToCart(shoe.id)"
-            ></i>
-          </div>
-        </template>
-      </div>
-    </section>
-    <!-- modal for sign/login form -->
-    <!-- <div class="modal" x-show="open">
-      <button class="btn-close-modal" x-on:click="hideModal">&times;</button>
-      <h2 class="modal-header">Hey There👋🏽 Please Open your account</h2>
-      <form class="modal-form">
-        <label>Email Address</label>
-        <input type="email" />
-        <label>Password</label>
-        <input type="text" />
-        <button class="btn">Signup &rarr;</button>
-        <p class="login-text">
-          already have an acccount ?
-          <span class="hidden"> don't have an acccount ? </span>
-          <span
-            ><a href="" x-on:click="userStatus">
-              <span x-bind:class="userExists ? 'hidden': '' ">login</span>
-              <span x-bind:class="userExists ? 'hidden': '' ">signup</span></a
-            ></span
+
+    <div class="row">
+      <!-- FLITERS -->
+      <article>
+        <!-- Brand Filter-->
+        <div class="filter-brand">
+          <label for="select-brand">Filter By Brand</label>
+          <select
+            name="shoes"
+            id="brand-select"
+            x-model="brand"
+            @change="handleChange"
           >
-        </p>
-      </form>
+            <option value="">Select Brand</option>
+            <option value="Moschino">Moschino</option>
+            <option value="zanotti">zanotti</option>
+          </select>
+        </div>
+
+        <!-- Size Filter-->
+        <div class="filter-size">
+          <label for="select-size">Filter By Size</label>
+          <select
+            name="shoes"
+            id="size-select"
+            x-model="size"
+            @change="handleChange"
+          >
+            <option value="">Select Size</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
+        </div>
+
+        <!-- Color Filter -->
+        <div class="filter-color">
+          <label for="select-color">Filter By Color</label>
+          <select
+            name="shoes"
+            id="select-color"
+            x-model="color"
+            @change="handleChange"
+          >
+            <option value="">Select Color</option>
+            <option value="Black">Black</option>
+            <option value="Brown">Brown</option>
+            <option value="White">White</option>
+          </select>
+        </div>
+      </article>
+      <!-- shoes -->
+      <section class="shop container">
+        <!-- Shop Content -->
+        <h2 class="section-title">Shoe Catalogue</h2>
+        <div class="shop-content">
+          <template x-for="shoe in shoes">
+            <div class="shoe-box">
+              <img
+                x-bind:src="shoe.image_url"
+                data-img="shoe.image_url"
+                alt=""
+                class="shoe-img"
+              />
+              <h4 x-text="shoe.brand" class="shoe-brand"></h4>
+              <span x-text="shoe.color" class="shoe-color"></span>
+              <h2 x-text="shoe.name" class="shoe-name"></h2>
+              <span class="price"
+                >R <span x-text="shoe.new_price" class="price"></span
+              ></span>
+              <p class="shoe-size">
+                size : <span x-text="shoe.size" class="shoe-size"></span>
+              </p>
+              <p
+                class="shoe-quantity"
+                x-bind:class="shoe.quantity < warning  ? 'danger': ''"
+              >
+                in stock :
+                <span x-text="shoe.quantity" class="shoe-quantity"></span>
+              </p>
+              <i
+                class="bx bx-shopping-bag add-cart"
+                x-on:click="addShoeToCart(shoe.id, $refs.shoes.value)"
+              ></i>
+            </div>
+          </template>
+        </div>
+      </section>
     </div>
-    <div class="overlay" x-show="open"></div> -->
-    <!-- modal for sign/login form -->
   </body>
 </html>
