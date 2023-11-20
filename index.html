@@ -84,7 +84,9 @@
           </div>
 
           <!-- buy button -->
-          <button class="btn-buy" type="button">Pay now</button>
+          <button class="btn-buy" type="button" x-on:click="cartPayment">
+            Pay now
+          </button>
           <!-- close cart -->
           <i class="bx bx-x" id="close-cart" x-on:click="closeCart"></i>
         </div>
