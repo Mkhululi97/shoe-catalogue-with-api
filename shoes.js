@@ -173,8 +173,7 @@ document.addEventListener("alpine:init", () => {
           });
         this.showCartData();
       },
-      addShoeToCart(shoeid, shoes) {
-        console.log(shoes);
+      addShoeToCart(shoeid) {
         this.addShoeOnCart(shoeid).then(() => {
           this.showCartData();
         });
