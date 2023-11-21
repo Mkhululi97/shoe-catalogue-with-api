@@ -153,8 +153,8 @@ document.addEventListener("alpine:init", () => {
           });
       },
       getCart() {
-        // const getCartUrl = `https://shoes-api-dkj2.onrender.com/api/cart/${this.email}`;
-        const getCartUrl = `http://localhost:3004/api/cart/test@test.com`;
+        const getCartUrl = `https://shoes-api-dkj2.onrender.com/api/cart/${this.email}`;
+        // const getCartUrl = `http://localhost:3004/api/cart/test@test.com`;
         return axios.get(getCartUrl);
       },
       showCartData() {
@@ -197,6 +197,9 @@ document.addEventListener("alpine:init", () => {
       },
 
       init() {
+        let storedUser = localStorage.getItem("user");
+        let userData = JSON.parse(storedUser);
+        this.email = userData.email;
         axios
           .get("https://shoes-api-dkj2.onrender.com/api/shoes")
           .then((result) => {
