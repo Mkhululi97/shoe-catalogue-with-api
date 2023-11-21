@@ -99,6 +99,7 @@ document.addEventListener("alpine:init", () => {
         }
       },
       openCart() {
+        this.showCartData();
         return (this.showCart = true);
       },
       closeCart() {
@@ -187,7 +188,6 @@ document.addEventListener("alpine:init", () => {
           .then((result) => {
             this.shoes = result.data;
           });
-        // this.showCartData();
       },
       addShoeToCart(shoeid) {
         this.addShoeOnCart(shoeid).then(() => {
