@@ -138,8 +138,17 @@ document.addEventListener("alpine:init", () => {
         response.then((res) => console.log(res));
       },
       getCart() {
-        const getCartUrl = `https://shoes-api-dkj2.onrender.com/api/cart/${this.email}`;
+        // const getCartUrl = `https://shoes-api-dkj2.onrender.com/api/cart/${this.email}`;
+        const getCartUrl = `http://localhost:3004/api/cart/test@test.com`;
         return axios.get(getCartUrl);
+      },
+      showCartData() {
+        this.getCart().then((result) => {
+          const cartData = result.data;
+          console.log(cartData);
+          this.cartShoes = cartData.cart.shoesArr;
+          this.cartTotal = cartData.cart.totalCart;
+        });
       },
       addShoeOnCart(shoeid) {
         const addShoeUrl = "https://shoes-api-dkj2.onrender.com/api/cart/add";
@@ -158,20 +167,27 @@ document.addEventListener("alpine:init", () => {
           }
         );
       },
-      showCartData() {
-        this.getCart().then((result) => {
-          const cartData = result.data;
-          this.cartShoes = cartData.cart.shoesArr;
-          this.cartTotal = cartData.cart.totalCart;
+      deleteShoeFromCart(shoeid) {
+        const deleteShoeUrl =
+          "https://shoes-api-dkj2.onrender.com/api/cart/delete";
+        axios.post(deleteShoeUrl, {
+          shoe_id: shoeid,
+        });
+        this.showCartData();
+      },
+      cartPayment() {
+        axios.post("http://localhost:3004/api/cart/payment").then((result) => {
+          this.showCartData();
         });
       },
+
       init() {
         axios
           .get("https://shoes-api-dkj2.onrender.com/api/shoes")
           .then((result) => {
             this.shoes = result.data;
           });
-        this.showCartData();
+        // this.showCartData();
       },
       addShoeToCart(shoeid) {
         this.addShoeOnCart(shoeid).then(() => {
@@ -183,14 +199,7 @@ document.addEventListener("alpine:init", () => {
           this.showCartData();
         });
       },
-      deleteShoeFromCart(shoeid) {
-        const deleteShoeUrl =
-          "https://shoes-api-dkj2.onrender.com/api/cart/delete";
-        axios.post(deleteShoeUrl, {
-          shoe_id: shoeid,
-        });
-        this.showCartData();
-      },
+
       checkuser() {
         if (userExists) {
           alert("returns");
