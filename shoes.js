@@ -5,7 +5,7 @@ document.addEventListener("alpine:init", () => {
       title: "Shoe-catalogue",
       shoes: [],
       signUpErrors: "",
-      email: "test@test.com",
+      email: "",
       password: "",
       cartShoes: [],
       cartTotal: 0.0,
@@ -16,6 +16,8 @@ document.addEventListener("alpine:init", () => {
       size: 0,
       color: "",
       warning: 3,
+      signInScreen: false,
+      //FILTERS
       handleChange() {
         //filters by brand size and color
         if (this.brand !== "" && this.size !== "" && this.color !== "") {
@@ -99,11 +101,17 @@ document.addEventListener("alpine:init", () => {
         }
       },
       openCart() {
-        this.showCartData();
         return (this.showCart = true);
       },
       closeCart() {
         return (this.showCart = false);
+      },
+      //USERS
+      showSignUpScreen() {
+        this.signInScreen = false;
+      },
+      showSignInScreen() {
+        this.signInScreen = true;
       },
       signUp(email, password) {
         const response = axios.post(
@@ -114,29 +122,35 @@ document.addEventListener("alpine:init", () => {
             is_admin: false,
           }
         );
-        response.then((res) => {
-          this.signUpErrors = res.data.message;
-          if (res.data.message !== "User Created") {
-            //turn userExists to true
-            this.userExists = false;
-            //x:bind href to login.html
-            //show login form
+        response.then((result) => {
+          this.signUpErrors = result.data.message;
+          if (
+            result.data.message === "User Created" ||
+            result.data.message === "mail exist"
+          ) {
+            this.signInScreen = true;
           }
-
           setTimeout(() => {
             this.signUpErrors = "";
           }, 2500);
         });
-        return this.userExists;
       },
+
       signIn(email, password) {
-        // "https://shoes-api-dkj2.onrender.com/api/users/login",
-        const response = axios.post("http://localhost:3004/api/users/login", {
-          email: email,
-          password: password,
-        });
-        console.log(email, password);
-        response.then((res) => console.log(res));
+        //"http://localhost:3004/api/users/login",
+        axios
+          .post("https://shoes-api-dkj2.onrender.com/api/users/login", {
+            email: email,
+            password: password,
+          })
+          .then((result) => {
+            let { token, user } = result.data;
+            if (result.data.token) {
+              this.email = email;
+              localStorage.setItem("token", token);
+              localStorage.setItem("user", JSON.stringify(user));
+            }
+          });
       },
       getCart() {
         // const getCartUrl = `https://shoes-api-dkj2.onrender.com/api/cart/${this.email}`;
@@ -146,7 +160,7 @@ document.addEventListener("alpine:init", () => {
       showCartData() {
         this.getCart().then((result) => {
           const cartData = result.data;
-          console.log(cartData);
+          // console.log(cartData);
           this.cartShoes = cartData.cart.shoesArr;
           this.cartTotal = cartData.cart.totalCart;
         });
@@ -188,6 +202,7 @@ document.addEventListener("alpine:init", () => {
           .then((result) => {
             this.shoes = result.data;
           });
+        this.showCartData();
       },
       addShoeToCart(shoeid) {
         this.addShoeOnCart(shoeid).then(() => {

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="user-forms.css" />
   </head>
   <body x-data="shoeapi">
+    <!-- ******************** SIGN UP FORM  ******************** -->
     <div class="modal">
       <h2 class="modal-header">Sign up</h2>
       <p class="error-msg" x-text="signUpErrors">Invalid mail</p>
@@ -35,13 +36,47 @@
           $refs.password.value= ''
           "
         >
-          <a x-bind:href="!userExists ? 'signin.html' : ''">Sign up &rarr;</a>
+          Sign up &rarr;
         </button>
         <p class="sign-up-text">
           Already have an acccount ?
-          <a href="signin.html"><span>sign in</span></a>
+          <span
+            ><button type="button" x-on:click="showSignInScreen">
+              sign in
+            </button></span
+          >
         </p>
       </form>
     </div>
+    <!-- ******************** SIGN UP FORM  ******************** -->
+
+    <!-- ******************** SIGN IN FORM  ******************** -->
+    <div class="modal" x-show="signInScreen">
+      <h2 class="modal-header">Sign in📲</h2>
+      <form class="modal-form">
+        <label>Email Address</label>
+        <input type="email" x-ref="emailLogin" />
+        <label>Password</label>
+        <input type="text" x-ref="passwordLogin" />
+        <button
+          type="button"
+          class="btn"
+          x-on:click="
+          emailLogin=$refs.emailLogin.value,
+          passwordLogin=$refs.passwordLogin.value,
+          signIn(emailLogin, passwordLogin), 
+          $refs.emailLogin.value = '', 
+          $refs.passwordLogin.value= ''
+          "
+        >
+          Sign in &rarr;
+        </button>
+        <p class="sign-in-text">
+          don't have an acccount ?
+          <span x-on:click="showSignUpScreen"><button>signup</button></span>
+        </p>
+      </form>
+    </div>
+    <!-- ******************** SIGN IN FORM  ******************** -->
   </body>
 </html>
