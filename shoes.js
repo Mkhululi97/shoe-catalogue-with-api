@@ -17,6 +17,8 @@ document.addEventListener("alpine:init", () => {
       color: "",
       warning: 3,
       signInScreen: false,
+      signUpScreen: false,
+      activeuser: true,
       //FILTERS
       handleChange() {
         //filters by brand size and color
@@ -108,6 +110,14 @@ document.addEventListener("alpine:init", () => {
       },
       //USERS
       showSignUpScreen() {
+        let userstatus = localStorage.getItem("activeuser");
+        if (!JSON.parse(userstatus)) {
+          this.signUpScreen = true;
+          this.signInScreen = false;
+        }
+      },
+      closeForm() {
+        this.signUpScreen = false;
         this.signInScreen = false;
       },
       showSignInScreen() {
@@ -128,7 +138,9 @@ document.addEventListener("alpine:init", () => {
             result.data.message === "User Created" ||
             result.data.message === "mail exist"
           ) {
-            this.signInScreen = true;
+            setTimeout(() => {
+              this.showSignInScreen();
+            }, 2500);
           }
           setTimeout(() => {
             this.signUpErrors = "";
@@ -149,6 +161,9 @@ document.addEventListener("alpine:init", () => {
               this.email = email;
               localStorage.setItem("token", token);
               localStorage.setItem("user", JSON.stringify(user));
+              localStorage.setItem("activeuser", this.activeuser);
+              window.location.href =
+                "https://mkhululi97.github.io/shoe-catalogue-with-api/";
             }
           });
       },
@@ -199,7 +214,9 @@ document.addEventListener("alpine:init", () => {
       init() {
         let storedUser = localStorage.getItem("user");
         let userData = JSON.parse(storedUser);
-        this.email = userData.email;
+        if (userData !== null) {
+          this.email = userData.email;
+        }
         axios
           .get("https://shoes-api-dkj2.onrender.com/api/shoes")
           .then((result) => {
