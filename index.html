@@ -85,11 +85,15 @@
           </div>
 
           <!-- buy button -->
-          <button class="btn-buy" type="button" x-on:click="cartPayment">
-            Pay now
+          <button class="btn-buy" type="button" x-on:click="showPaymentBtn">
+            Checkout
           </button>
           <!-- close cart -->
           <i class="bx bx-x" id="close-cart" x-on:click="closeCart"></i>
+          <div class="payment-wrapper" x-show="paymentBtn">
+            <input type="number" placeholder="R 14000" class="amount-input" x-ref="pays">
+            <button type="button" class="btn-pay" x-on:click="cartPayment($refs.pays.value), $refs.pays.value=''">Pay</button>
+          </div>
         </div>
       </nav>
     </header>

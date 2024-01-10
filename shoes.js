@@ -18,7 +18,9 @@ document.addEventListener("alpine:init", () => {
       warning: 3,
       signInScreen: false,
       signUpScreen: false,
+      paymentBtn: false,
       activeuser: true,
+      paymentAmount:0,
       //FILTERS
       handleChange() {
         //filters by brand size and color
@@ -205,12 +207,22 @@ document.addEventListener("alpine:init", () => {
         });
         this.showCartData();
       },
-      cartPayment() {
-        axios.post("http://localhost:3004/api/cart/payment").then((result) => {
-          this.showCartData();
-        });
+      showPaymentBtn(){
+        this.paymentBtn=true;
       },
-
+      cartPayment(amount) {
+        axios.post("http://localhost:3004/api/cart/payment",{
+          email:this.email,
+          payment:amount
+        }).then((result) => {
+          if(result.data.message === "Payment Successful")
+           window.location.href ="success.html"
+          if(result.data.message === "Insufficient funds")
+           window.location.href ="cancel.html"
+          // this.showCartData();
+      });
+      this.paymentBtn=false;
+    },
       init() {
         let storedUser = localStorage.getItem("user");
         let userData = JSON.parse(storedUser);
@@ -234,7 +246,6 @@ document.addEventListener("alpine:init", () => {
           this.showCartData();
         });
       },
-
       checkuser() {
         if (userExists) {
           alert("returns");
@@ -242,6 +253,9 @@ document.addEventListener("alpine:init", () => {
           alert("new");
         }
       },
+      // makePayment(amountInput){
+      //   this.cartPayment(amountInput)
+      // }
     };
   });
 });
