@@ -32,13 +32,21 @@
         <!-- logo -->
         <a href="#" class="logo">Lubabalo's Kicks👟</a>
         <div class="nav">
-          <!-- cart icon -->
           <i
             class="bx bx-shopping-bag"
             id="cart-icon"
-            data-quantity="0"
+            x-bind:data-quantity="itemsInCart"
             x-on:click="openCart"
           ></i>
+          <!-- cart icon -->
+          <!-- <i
+            x-data="{myAttribute: '0'}"
+            x-init="$el.setAttribute('data-quantity', myAttribute)"
+            x-on:click="openCart"
+            class="bx bx-shopping-bag"
+            id="cart-icon"
+            data-quantity="0"
+          ></i> -->
           <!-- user icon -->
           <!-- <i class="bx bx-user" id="user-icon"></i> -->
           <!-- cart -->
@@ -91,8 +99,19 @@
           <!-- close cart -->
           <i class="bx bx-x" id="close-cart" x-on:click="closeCart"></i>
           <div class="payment-wrapper" x-show="paymentBtn">
-            <input type="number" placeholder="R 14000" class="amount-input" x-ref="pays">
-            <button type="button" class="btn-pay" x-on:click="cartPayment($refs.pays.value), $refs.pays.value=''">Pay</button>
+            <input
+              type="number"
+              placeholder="R 14000"
+              class="amount-input"
+              x-ref="pays"
+            />
+            <button
+              type="button"
+              class="btn-pay"
+              x-on:click="cartPayment($refs.pays.value), $refs.pays.value=''"
+            >
+              Pay
+            </button>
           </div>
         </div>
       </nav>

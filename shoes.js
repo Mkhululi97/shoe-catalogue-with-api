@@ -20,7 +20,8 @@ document.addEventListener("alpine:init", () => {
       signUpScreen: false,
       paymentBtn: false,
       activeuser: true,
-      paymentAmount:0,
+      paymentAmount: 0,
+      itemsInCart: 0,
       //FILTERS
       handleChange() {
         //filters by brand size and color
@@ -171,20 +172,20 @@ document.addEventListener("alpine:init", () => {
       },
       getCart() {
         const getCartUrl = `https://shoes-api-dkj2.onrender.com/api/cart/${this.email}`;
-        // const getCartUrl = `http://localhost:3004/api/cart/test@test.com`;
         return axios.get(getCartUrl);
       },
       showCartData() {
         this.getCart().then((result) => {
           const cartData = result.data;
-          // console.log(cartData);
           this.cartShoes = cartData.cart.shoesArr;
           this.cartTotal = cartData.cart.totalCart;
         });
       },
       addShoeOnCart(shoeid) {
-        const addShoeUrl = "https://shoes-api-dkj2.onrender.com/api/cart/add";
+        // const addShoeUrl = "https://shoes-api-dkj2.onrender.com/api/cart/add";
+        const addShoeUrl = "http://localhost:3004/api/cart/add";
 
+        this.showCartData();
         return axios.post(addShoeUrl, {
           email: this.email,
           shoe_id: shoeid,
@@ -207,22 +208,24 @@ document.addEventListener("alpine:init", () => {
         });
         this.showCartData();
       },
-      showPaymentBtn(){
-        this.paymentBtn=true;
+      showPaymentBtn() {
+        this.paymentBtn = true;
       },
       cartPayment(amount) {
-        axios.post("http://localhost:3004/api/cart/payment",{
-          email:this.email,
-          payment:amount
-        }).then((result) => {
-          if(result.data.message === "Payment Successful")
-           window.location.href ="success.html"
-          if(result.data.message === "Insufficient funds")
-           window.location.href ="cancel.html"
-          // this.showCartData();
-      });
-      this.paymentBtn=false;
-    },
+        axios
+          .post("https://shoes-api-dkj2.onrender.com/api/cart/payment", {
+            email: this.email,
+            payment: amount,
+          })
+          .then((result) => {
+            if (result.data.message === "Payment Successful")
+              window.location.href = "success.html";
+            if (result.data.message === "Insufficient funds")
+              window.location.href = "cancel.html";
+            // this.showCartData();
+          });
+        this.paymentBtn = false;
+      },
       init() {
         let storedUser = localStorage.getItem("user");
         let userData = JSON.parse(storedUser);
@@ -234,10 +237,13 @@ document.addEventListener("alpine:init", () => {
           .then((result) => {
             this.shoes = result.data;
           });
+        this.itemsInCart = localStorage.getItem("itemsInCart");
         this.showCartData();
       },
       addShoeToCart(shoeid) {
-        this.addShoeOnCart(shoeid).then(() => {
+        this.addShoeOnCart(shoeid).then((result) => {
+          this.itemsInCart = result.data.itemsInCart;
+          localStorage.setItem("itemsInCart", this.itemsInCart);
           this.showCartData();
         });
       },
@@ -253,9 +259,23 @@ document.addEventListener("alpine:init", () => {
           alert("new");
         }
       },
-      // makePayment(amountInput){
-      //   this.cartPayment(amountInput)
-      // }
+      //Quantity In Cart Icon
+      updateCartIcon() {
+        //get shoes on the cart
+        let cartBoxes = document.querySelectorAll(".cart-box");
+        let quantity = 0;
+        //loop over each shoe to get its quantity
+        cartBoxes.forEach((cartBox) => {
+          //gets the number from the shoe quantity on the cart
+          let quantityEle = cartBox.querySelectorAll(".cart-quantity")[0];
+          //sets the number on the bag icon to shoe quantity on the cart
+          quantity += parseInt(quantityEle.value);
+        });
+        //gets the bag icon
+        let cartIcon = document.querySelector("#cart-icon");
+        //quantity is the count of each shoe in the cart//reflect the number of shoes on the cart on the bag icon
+        cartIcon.setAttribute("data-quantity", quantity);
+      },
     };
   });
 });
