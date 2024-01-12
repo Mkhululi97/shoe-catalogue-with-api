@@ -113,7 +113,7 @@ document.addEventListener("alpine:init", () => {
       },
       //USERS
       showSignUpScreen() {
-        let userstatus = localStorage.getItem("activeuser");
+        let userstatus = sessionStorage.getItem("activeuser");
         if (!JSON.parse(userstatus)) {
           this.signUpScreen = true;
           this.signInScreen = false;
@@ -162,9 +162,9 @@ document.addEventListener("alpine:init", () => {
             let { token, user } = result.data;
             if (result.data.token) {
               this.email = email;
-              localStorage.setItem("token", token);
-              localStorage.setItem("user", JSON.stringify(user));
-              localStorage.setItem("activeuser", this.activeuser);
+              sessionStorage.setItem("token", token);
+              sessionStorage.setItem("user", JSON.stringify(user));
+              sessionStorage.setItem("activeuser", this.activeuser);
               window.location.href =
                 "https://mkhululi97.github.io/shoe-catalogue-with-api/";
             }
@@ -225,7 +225,7 @@ document.addEventListener("alpine:init", () => {
         this.paymentBtn = false;
       },
       init() {
-        let storedUser = localStorage.getItem("user");
+        let storedUser = sessionStorage.getItem("user");
         let userData = JSON.parse(storedUser);
         if (userData !== null) {
           this.email = userData.email;
@@ -235,7 +235,7 @@ document.addEventListener("alpine:init", () => {
           .then((result) => {
             this.shoes = result.data;
           });
-        this.itemsInCart = localStorage.getItem("itemsInCart");
+        this.itemsInCart = localStorage.getItem("itemsInCart") && 0;
         this.showCartData();
       },
       addShoeToCart(shoeid) {
