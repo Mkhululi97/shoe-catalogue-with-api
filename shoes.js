@@ -182,9 +182,7 @@ document.addEventListener("alpine:init", () => {
         });
       },
       addShoeOnCart(shoeid) {
-        // const addShoeUrl = "https://shoes-api-dkj2.onrender.com/api/cart/add";
-        const addShoeUrl = "http://localhost:3004/api/cart/add";
-
+        const addShoeUrl = "https://shoes-api-dkj2.onrender.com/api/cart/add";
         this.showCartData();
         return axios.post(addShoeUrl, {
           email: this.email,
@@ -248,7 +246,9 @@ document.addEventListener("alpine:init", () => {
         });
       },
       removeShoeFromCart(shoeid) {
-        this.removeShoeOnCart(shoeid).then(() => {
+        this.removeShoeOnCart(shoeid).then((result) => {
+          this.itemsInCart = result.data.itemsInCart;
+          localStorage.setItem("itemsInCart", this.itemsInCart);
           this.showCartData();
         });
       },
@@ -258,23 +258,6 @@ document.addEventListener("alpine:init", () => {
         } else {
           alert("new");
         }
-      },
-      //Quantity In Cart Icon
-      updateCartIcon() {
-        //get shoes on the cart
-        let cartBoxes = document.querySelectorAll(".cart-box");
-        let quantity = 0;
-        //loop over each shoe to get its quantity
-        cartBoxes.forEach((cartBox) => {
-          //gets the number from the shoe quantity on the cart
-          let quantityEle = cartBox.querySelectorAll(".cart-quantity")[0];
-          //sets the number on the bag icon to shoe quantity on the cart
-          quantity += parseInt(quantityEle.value);
-        });
-        //gets the bag icon
-        let cartIcon = document.querySelector("#cart-icon");
-        //quantity is the count of each shoe in the cart//reflect the number of shoes on the cart on the bag icon
-        cartIcon.setAttribute("data-quantity", quantity);
       },
     };
   });
