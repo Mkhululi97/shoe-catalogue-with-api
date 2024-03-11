@@ -1,0 +1,55 @@
+button {
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  padding: 5px 10px;
+  margin-block-start: 28px;
+  font-size: 1rem;
+  border-radius: 3px;
+}
+button:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+}
+label {
+  margin-bottom: revert;
+  margin-block-start: 12px;
+}
+label:first-child {
+  margin-block-start: revert;
+}
+input {
+  padding-block-end: 4px;
+}
+input:last-child {
+  margin-block-end: 24px;
+}
+small {
+  margin-block-end: 12px;
+  display: block;
+}
+form {
+  padding-block-end: 2rem;
+}
+p {
+  font-size: 1.4rem;
+}
+h1 {
+  margin-block-start: 70px;
+}
+p,
+h1 {
+  text-align: center;
+}
+.fail,
+small {
+  color: red;
+}
+.form-wrapper {
+  margin-block-start: 35px;
+  display: flex;
+  justify-content: center;
+}
+.success {
+  color: var(--text-color);
+}

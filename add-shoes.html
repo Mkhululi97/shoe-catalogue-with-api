@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add new shoe</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <script src="shoes.js" defer></script>
+    <!-- ***** ALPINE ***** -->
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <!-- ***** ALPINE ***** -->
+    <!-- ***** AXIOS ***** -->
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <!-- ***** AXIOS ***** -->
+  </head>
+  <body x-data="shoeapi">
+    <!-- navigation -->
+    <header>
+      <!-- Nav -->
+      <nav class="nav container">
+        <!-- logo -->
+        <a href="#" class="logo">Lubabalo's Kicks👟</a>
+        <div class="nav-links-wrapper">
+          <ul class="nav-links">
+            <li><a href="index.html">Back To Store</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- form -->
+    <h1>Add New Shoes To Stock:</h1>
+    <p x-text="notificationText" class="success"></p>
+    <div class="form-wrapper">
+      <form x-on:submit.prevent>
+        <div>
+          <label for="brand">Brand:</label>
+        </div>
+        <input type="text" name="brand" x-ref="brand" />
+        <small x-ref="brand_small" class="hidden" id="brand">enter brand</small>
+        <div>
+          <label for="name">Name:</label>
+        </div>
+        <input type="text" name="name" x-ref="name" />
+        <small x-ref="name_small" class="hidden" id="name">enter name</small>
+        <div>
+          <label for="size">Size:</label>
+        </div>
+        <input type="number" name="size" x-ref="size" min="0" />
+        <small x-ref="size_small" class="hidden" id="size">enter size</small>
+        <div>
+          <label for="color">Color:</label>
+        </div>
+        <input type="text" name="color" x-ref="color" />
+        <small x-ref="color_small" class="hidden" id="color">enter color</small>
+        <div>
+          <label for="quantity">Quantity</label>
+        </div>
+        <input type="number" name="quantity" x-ref="quantity" min="0" />
+        <small x-ref="quantity_small" class="hidden" id="quantity"
+          >enter quantity</small
+        >
+        <div>
+          <label for="image_url">Image url:</label>
+        </div>
+        <input type="text" name="image_url" x-ref="image_url" />
+        <small x-ref="image_url_small" class="hidden" id="image_url"
+          >enter image url</small
+        >
+        <div>
+          <label for="new_price">Price:</label>
+        </div>
+        <div>
+          <input type="number" name="new_price" x-ref="new_price" min="0" />
+          <small x-ref="new_price_small" class="hidden" id="new_price"
+            >enter price</small
+          >
+        </div>
+
+        <button
+          x-on:click="
+        brand = $refs.brand.value,
+        name=$refs.name.value,
+        size=$refs.size.value,
+        color=$refs.color.value,
+        quantity=$refs.quantity.value,
+        image_url=$refs.image_url.value,
+        new_price=$refs.new_price.value,
+        brand_small=$refs.brand_small,
+        name_small=$refs.name_small,
+        size_small=$refs.size_small,
+        color_small=$refs.color_small,
+        quantity_small=$refs.quantity_small,
+        image_url_small=$refs.image_url_small,
+        price_small=$refs.new_price_small,
+        addToStock({
+          brand,
+          name,
+          size,
+          color,
+          quantity,
+          image_url,
+          new_price
+        },{
+        brand_small,
+        name_small,
+        size_small,
+        color_small,
+        quantity_small,
+        image_url_small,
+        price_small
+        })
+        "
+        >
+          submit
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
+
+<!-- ANTONY MORATO -->
+<!-- ANTONY MORATO MAN FOOTWEAR MMFW01577-LE300001-1000 -->
+<!-- 8 -->
+<!-- White -->
+<!-- 5 -->
+<!-- https://www.hydraulicsstores.co.za/wp-content/uploads/2024/02/MMFW01577-LE300001-1000_01.jpg -->
+<!-- 2375 -->

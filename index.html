@@ -22,6 +22,11 @@
       href="./images/favicon1.ico"
       type="image/x-icon"
     />
+    <style>
+      [x-cloak] {
+        display: none;
+      }
+    </style>
   </head>
 
   <body x-data="shoeapi">
@@ -31,6 +36,22 @@
       <nav class="nav container">
         <!-- logo -->
         <a href="#" class="logo">Lubabalo's Kicks👟</a>
+        <div class="nav-links-wrapper">
+          <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#shop">Shop now</a></li>
+            <li
+              x-on:click="showSignUpScreen()"
+              x-bind:class="activeuser ? 'hidden': ''"
+            >
+              Sign in
+            </li>
+            <li x-on:click="signOut()" x-bind:class="activeuser ? '': 'hidden'">
+              Sign out
+            </li>
+          </ul>
+        </div>
+        <!-- cart -->
         <div class="nav">
           <i
             class="bx bx-shopping-bag"
@@ -38,18 +59,6 @@
             x-bind:data-quantity="itemsInCart"
             x-on:click="openCart"
           ></i>
-          <!-- cart icon -->
-          <!-- <i
-            x-data="{myAttribute: '0'}"
-            x-init="$el.setAttribute('data-quantity', myAttribute)"
-            x-on:click="openCart"
-            class="bx bx-shopping-bag"
-            id="cart-icon"
-            data-quantity="0"
-          ></i> -->
-          <!-- user icon -->
-          <!-- <i class="bx bx-user" id="user-icon"></i> -->
-          <!-- cart -->
         </div>
         <div class="cart" x-bind:class="showCart ? 'active': '' ">
           <h2 class="cart-title">Your Cart</h2>
@@ -68,12 +77,12 @@
                   <div>
                     <i
                       class="bx bx-plus-circle add-shoe-qty"
-                      x-on:click="addShoeToCart(shoe.shoe_id)"
+                      x-on:click="addShoeOnCart(shoe.shoe_id)"
                     ></i>
                     <span x-text="shoe.qty"></span>
                     <i
                       class="bx bx-minus-circle minus-shoe-qty"
-                      x-on:click="removeShoeFromCart(shoe.shoe_id)"
+                      x-on:click="minusShoeQty(shoe.shoe_id)"
                     ></i>
                   </div>
                 </div>
@@ -91,7 +100,6 @@
             <div class="total-title">Total</div>
             <div>R<span x-text="cartTotal" class="total-price"></span></div>
           </div>
-
           <!-- buy button -->
           <button class="btn-buy" type="button" x-on:click="showPaymentBtn">
             Checkout
@@ -101,7 +109,7 @@
           <div class="payment-wrapper" x-show="paymentBtn">
             <input
               type="number"
-              placeholder="R 14000"
+              placeholder="R 14 000"
               class="amount-input"
               x-ref="pays"
             />
@@ -116,66 +124,78 @@
         </div>
       </nav>
     </header>
+    <!-- ******************** HERO SECTION ******************** -->
+    <section id="hero">
+      <div>
+        <img
+          src="https://www.hydraulicsstores.co.za/wp-content/uploads/2024/01/6-1.png"
+          alt=""
+        />
+      </div>
+    </section>
+    <!-- ******************** HERO SECTION ******************** -->
 
-    <div class="row">
-      <!-- FLITERS -->
-      <article>
-        <!-- Brand Filter-->
-        <div class="filter-brand">
-          <label for="select-brand">Filter By Brand</label>
-          <select
-            name="shoes"
-            id="brand-select"
-            x-model="brand"
-            @change="handleChange"
-          >
-            <option value="">Select Brand</option>
-            <option value="Moschino">Moschino</option>
-            <option value="zanotti">zanotti</option>
-          </select>
-        </div>
+    <!-- shoes -->
+    <section id="shop">
+      <!-- Shop Content -->
+      <h2 class="section-title">Shoe Catalogue</h2>
+      <div class="shoes-wrapper container">
+        <!-- FLITERS -->
+        <article>
+          <!-- Brand Filter-->
+          <div class="filter-brand">
+            <label for="select-brand">Filter By Brand</label>
+            <select
+              name="shoes"
+              id="brand-select"
+              x-model="brand"
+              @change="handleChange"
+            >
+              <option value="">Select Brand</option>
+              <option value="Moschino">Moschino</option>
+              <option value="Zanotti">Zanotti</option>
+              <option value="Philipp Plein">Philipp Plein</option>
+              <option value="Naked Wolfe">Naked Wolfe</option>
+            </select>
+          </div>
 
-        <!-- Size Filter-->
-        <div class="filter-size">
-          <label for="select-size">Filter By Size</label>
-          <select
-            name="shoes"
-            id="size-select"
-            x-model="size"
-            @change="handleChange"
-          >
-            <option value="">Select Size</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-          </select>
-        </div>
+          <!-- Size Filter-->
+          <div class="filter-size">
+            <label for="select-size">Filter By Size</label>
+            <select
+              name="shoes"
+              id="size-select"
+              x-model="size"
+              @change="handleChange"
+            >
+              <option value="">Select Size</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+          </div>
 
-        <!-- Color Filter -->
-        <div class="filter-color">
-          <label for="select-color">Filter By Color</label>
-          <select
-            name="shoes"
-            id="select-color"
-            x-model="color"
-            @change="handleChange"
-          >
-            <option value="">Select Color</option>
-            <option value="Black">Black</option>
-            <option value="Brown">Brown</option>
-            <option value="White">White</option>
-          </select>
-        </div>
-      </article>
-      <!-- shoes -->
-      <section class="shop container">
-        <!-- Shop Content -->
-        <h2 class="section-title">Shoe Catalogue</h2>
+          <!-- Color Filter -->
+          <div class="filter-color">
+            <label for="select-color">Filter By Color</label>
+            <select
+              name="shoes"
+              id="select-color"
+              x-model="color"
+              @change="handleChange"
+            >
+              <option value="">Select Color</option>
+              <option value="Black">Black</option>
+              <option value="Brown">Brown</option>
+              <option value="White">White</option>
+            </select>
+          </div>
+        </article>
         <div class="shop-content">
           <template x-for="shoe in shoes">
             <div class="shoe-box">
@@ -202,16 +222,18 @@
                 <span x-text="shoe.quantity" class="shoe-quantity"></span>
               </p>
               <i
+                x-bind:class="shoe.quantity < 1  ? 'hidden': ''"
                 class="bx bx-shopping-bag add-cart"
-                x-on:click="addShoeToCart(shoe.id),showSignUpScreen()"
+                x-on:click="addShoeOnCart(shoe.id),showSignUpScreen()"
               ></i>
             </div>
           </template>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
     <!-- ******************** SIGN UP FORM  ******************** -->
-    <div class="modal" x-show="signUpScreen">
+    <div class="modal" x-show="signUpScreen" x-cloak>
       <button class="btn--close-modal" x-on:click="closeForm">&times;</button>
       <h2 class="modal-header">Sign up</h2>
       <p class="error-msg" x-text="signUpErrors">Invalid mail</p>
@@ -248,14 +270,14 @@
     <!-- ******************** SIGN UP FORM  ******************** -->
 
     <!-- ******************** SIGN IN FORM  ******************** -->
-    <div class="modal" x-show="signInScreen">
+    <div class="modal" x-show="signInScreen" x-cloak>
       <button class="btn--close-modal" x-on:click="closeForm">&times;</button>
       <h2 class="modal-header">Sign in📲</h2>
       <form class="modal-form">
         <label>Email Address</label>
-        <input type="email" x-ref="emailLogin" />
+        <input type="email" x-ref="emailLogin" placeholder="enter email" />
         <label>Password</label>
-        <input type="text" x-ref="passwordLogin" />
+        <input type="text" x-ref="passwordLogin" placeholder="enter password" />
         <button
           type="button"
           class="btn"
@@ -275,7 +297,21 @@
         </p>
       </form>
     </div>
-
     <!-- ******************** SIGN IN FORM  ******************** -->
+    <!-- ******************** FOOTER SECTION ******************** -->
+    <footer>
+      <div class="container">
+        <p>You can find us at:</p>
+        <span
+          >Eastgate Shopping Centre, Shop U153, Johannesburg, 43 Bradford Rd,
+          Bedfordview, Johannesburg, 2008</span
+        >
+        <span>| Phone: 011 622 2711</span>
+        <div class="footer-wrapper">
+          <small>&copy LUBABALO 2024</small>
+          <a href="index.html">LUBABALO</a>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
