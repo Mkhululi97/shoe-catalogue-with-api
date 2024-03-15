@@ -36,6 +36,18 @@
       <nav class="nav container">
         <!-- logo -->
         <a href="#" class="logo">Lubabalo's Kicks👟</a>
+        <!-- <i
+          class="bx bx-user usericon"
+          x-on:click="showSignUpScreen()"
+          x-bind:class="activeuser ? 'hidden': ''"
+        ></i> -->
+        <!-- <p
+          class="sign-out-paragraph"
+          x-on:click="signOut()"
+          x-bind:class="activeuser ? '': 'hidden'"
+        >
+          Sign out
+        </p> -->
         <div class="nav-links-wrapper">
           <ul class="nav-links">
             <li><a href="#hero">Home</a></li>
@@ -46,7 +58,11 @@
             >
               Sign in
             </li>
-            <li x-on:click="signOut()" x-bind:class="activeuser ? '': 'hidden'">
+            <li
+              id="sign-out"
+              x-on:click="signOut()"
+              x-bind:class="activeuser ? '': 'hidden'"
+            >
               Sign out
             </li>
           </ul>

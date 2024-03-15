@@ -29,11 +29,9 @@ section {
   padding: revert;
 }
 .hidden {
-  display: none;
+  display: none !important;
 }
-.display {
-  display: block;
-}
+
 .shop {
   margin-top: 2rem;
 }
@@ -354,8 +352,11 @@ section#shadow-host-companion {
 
 /* Add media queries */
 @media (max-width: 706px) {
-  .nav-links-wrapper {
+  .nav-links li {
     display: none;
+  }
+  #sign-out {
+    display: block;
   }
   .section-title {
     margin-block-end: 1.8rem;
@@ -378,6 +379,14 @@ section#shadow-host-companion {
   }
   footer {
     padding: 1rem 1.2rem;
+  }
+
+  .cart {
+    width: 100%;
+  }
+  .logo,
+  .sign-out-paragraph {
+    font-size: 15px;
   }
   /* ---------- SIGN UP FORM ---------- */
   /* ---------- SIGN UP FORM ---------- */
