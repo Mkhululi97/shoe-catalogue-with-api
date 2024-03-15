@@ -25,7 +25,7 @@ document.addEventListener("alpine:init", () => {
       //FILTERS
       handleChange() {
         //filters by brand size and color
-        if (this.brand !== "" && this.size !== "" && this.color !== "") {
+        if (this.brand !== "" && this.size !== 0 && this.color !== "") {
           this.shoes = [];
           axios
             .get(
@@ -35,7 +35,7 @@ document.addEventListener("alpine:init", () => {
               this.shoes = result.data;
             });
         } //filters by size
-        else if (this.size !== "" && this.brand == "" && this.color == "") {
+        else if (this.size !== 0 && this.brand == "" && this.color == "") {
           this.shoes = [];
           axios
             .get(
@@ -45,7 +45,7 @@ document.addEventListener("alpine:init", () => {
               this.shoes = result.data;
             });
         } //filters by brand
-        else if (this.brand !== "" && this.size == "" && this.color == "") {
+        else if (this.brand !== "" && this.size == 0 && this.color == "") {
           this.shoes = [];
           axios
             .get(
@@ -55,7 +55,7 @@ document.addEventListener("alpine:init", () => {
               this.shoes = result.data;
             });
         } //filters by color
-        else if (this.color !== "" && this.brand == "" && this.size == "") {
+        else if (this.color !== "" && this.brand == "" && this.size == 0) {
           this.shoes = [];
           axios
             .get(
@@ -65,7 +65,7 @@ document.addEventListener("alpine:init", () => {
               this.shoes = result.data;
             });
         } //filters by brand and size
-        else if (this.brand !== "" && this.size !== "" && this.color == "") {
+        else if (this.brand !== "" && this.size !== 0 && this.color == "") {
           this.shoes = [];
           axios
             .get(
@@ -75,7 +75,7 @@ document.addEventListener("alpine:init", () => {
               this.shoes = result.data;
             });
         } //filters by brand and color
-        else if (this.brand !== "" && this.color !== "" && this.size == "") {
+        else if (this.brand !== "" && this.color !== "" && this.size == 0) {
           this.shoes = [];
           axios
             .get(
@@ -85,7 +85,7 @@ document.addEventListener("alpine:init", () => {
               this.shoes = result.data;
             });
         } //filter by size and color
-        else if (this.color !== "" && this.size !== "" && this.brand !== "") {
+        else if (this.color !== "" && this.size !== 0 && this.brand !== "") {
           this.shoes = [];
           axios
             .get(
@@ -96,7 +96,7 @@ document.addEventListener("alpine:init", () => {
             });
         }
         //no filters
-        else if (this.brand === "" && this.size === "" && this.color === "") {
+        else if (this.brand === "" && this.size === 0 && this.color === "") {
           this.shoes = [];
           axios
             .get("https://shoes-api-dkj2.onrender.com/api/shoes")
