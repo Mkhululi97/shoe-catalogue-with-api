@@ -150,7 +150,7 @@
       </div>
     </section>
     <!-- ******************** HERO SECTION ******************** -->
-
+    <div></div>
     <!-- shoes -->
     <section id="shop">
       <!-- Shop Content -->
@@ -212,6 +212,7 @@
             </select>
           </div>
         </article>
+        <div id="preloader" x-show="shoes.length===0"></div>
         <div class="shop-content">
           <template x-for="shoe in shoes">
             <div class="shoe-box">

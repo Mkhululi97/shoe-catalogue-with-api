@@ -349,7 +349,12 @@ section#shadow-host-companion {
   display: flex;
   transform: translateY(70px);
 }
-
+#preloader {
+  background: url(images/loader-gif2.gif) no-repeat center;
+  -webkit-filter: opacity(0.25) drop-shadow(0 0 0 var(--container-color));
+  height: 100vh;
+  width: 100%;
+}
 /* Add media queries */
 @media (max-width: 706px) {
   .nav-links li {
